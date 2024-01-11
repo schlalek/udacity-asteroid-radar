@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -48,6 +49,10 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
             .load(imgUri)
+            .apply(
+                RequestOptions().error(R.drawable.ic_broken_image)
+                    .placeholder(R.drawable.loading_animation)
+            )
             .into(imgView)
     }
 }
